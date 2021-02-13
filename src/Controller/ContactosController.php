@@ -12,6 +12,50 @@ use App\Controller\AppController;
  */
 class ContactosController extends AppController
 {
+	
+	public $entity_name = 'contacto';
+    public $entity_name_plural = 'contactos';
+
+    public $table_buttons = [
+        'Borrar' => [
+            'url' => [
+                'controller' => 'Contactos',
+                'action' => 'delete',
+                'plugin' => false
+            ],
+            'options' => [
+                'confirm' => '¿Está seguro de que desea eliminar el contacto?',
+                'class' => 'button'
+            ]
+        ]
+    ];
+
+    public $header_actions = [
+        'Administrar vehículos' => [
+            'url' => [
+                'controller' => 'Vehiculos',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ],
+        'Administrar usuarios' => [
+            'url' => [
+                'controller' => 'Usuarios',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ]
+    ];
+
+    // Default pagination settings
+    public $paginate = [
+        'limit' => 20,
+        'order' => [
+            'Posts.published_date' => 'DESC',
+            'Posts.published_time' => 'DESC'
+        ]
+    ];
+	
     /**
      * Index method
      *
@@ -19,28 +63,41 @@ class ContactosController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Usuarios', 'Vehiculos'],
-        ];
-        $contactos = $this->paginate($this->Contactos);
+		$settings = $this->paginate;
 
-        $this->set(compact('contactos'));
-    }
+        //prepare the pagination
+        $this->paginate = $settings;
+        $entities = $this->paginate($this->modelClass);
+		
+		$modelos = $this->{$this->getName()}->Vehiculos->Modelos->find()
+			->combine('id', 'nombre')
+			->toArray();
+			
+		$marcas = $this->{$this->getName()}->Vehiculos->Modelos->Marcas->find()
+			->combine('id', 'nombre')
+			->toArray();
+			
+		$marcas_modelos = $this->{$this->getName()}->Vehiculos->Modelos->find()
+			->combine('id', 'marca_id')
+			->toArray();
+			
+		$vehiculos_modelos = $this->{$this->getName()}->Vehiculos->find()
+			->combine('id', 'modelo_id')
+			->toArray();
+		
+		$usuarios = $this->{$this->getName()}->Usuarios->find()
+			->combine('id', 'email')
+			->toArray();
 
-    /**
-     * View method
-     *
-     * @param string|null $id Contacto id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $contacto = $this->Contactos->get($id, [
-            'contain' => ['Usuarios', 'Vehiculos'],
-        ]);
-
-        $this->set('contacto', $contacto);
+        $this->set('entities', $entities);
+        $this->set('modelos', $modelos);
+        $this->set('usuarios', $usuarios);
+        $this->set('marcas', $marcas);
+        $this->set('marcas_modelos', $marcas_modelos);
+        $this->set('vehiculos_modelos', $vehiculos_modelos);
+		$this->set('header_actions', []);
+        $this->set('table_buttons', $this->table_buttons);
+        $this->set('_serialize', 'entities');
     }
 
     /**
@@ -48,66 +105,39 @@ class ContactosController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
-        $contacto = $this->Contactos->newEntity();
+		$vehiculo = $this->{$this->getName()}->Vehiculos->find()->where(['id' => $id])->first();
+		$modelo = $this->{$this->getName()}->Vehiculos->Modelos->find()->where(['id' => $vehiculo->modelo_id])->first();
+		$marca = $this->{$this->getName()}->Vehiculos->Modelos->Marcas->find()->where(['id' => $modelo->marca_id])->first();
+		
+		
+        $entity = $this->{$this->getName()}->newEntity();
         if ($this->request->is('post')) {
-            $contacto = $this->Contactos->patchEntity($contacto, $this->request->getData());
-            if ($this->Contactos->save($contacto)) {
-                $this->Flash->success(__('The contacto has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The contacto could not be saved. Please, try again.'));
+			debug($this->request->getData());
         }
-        $usuarios = $this->Contactos->Usuarios->find('list', ['limit' => 200]);
-        $vehiculos = $this->Contactos->Vehiculos->find('list', ['limit' => 200]);
-        $this->set(compact('contacto', 'usuarios', 'vehiculos'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Contacto id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $contacto = $this->Contactos->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $contacto = $this->Contactos->patchEntity($contacto, $this->request->getData());
-            if ($this->Contactos->save($contacto)) {
-                $this->Flash->success(__('The contacto has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The contacto could not be saved. Please, try again.'));
-        }
-        $usuarios = $this->Contactos->Usuarios->find('list', ['limit' => 200]);
-        $vehiculos = $this->Contactos->Vehiculos->find('list', ['limit' => 200]);
-        $this->set(compact('contacto', 'usuarios', 'vehiculos'));
+        $this->set(compact('entity', 'modelo', 'marca'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Contacto id.
+     * @param string|null $id Vehiculo id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $contacto = $this->Contactos->get($id);
-        if ($this->Contactos->delete($contacto)) {
-            $this->Flash->success(__('The contacto has been deleted.'));
+        $vehiculo = $this->Vehiculos->get($id);
+        if ($this->Vehiculos->delete($vehiculo)) {
+            $this->Flash->success(__('El contacto ha sido eliminado'));
         } else {
-            $this->Flash->error(__('The contacto could not be deleted. Please, try again.'));
+            $this->Flash->error(__('El contacto no ha podido ser eliminado. Por favor, inténtelo de nuevo.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
+	
+
 }

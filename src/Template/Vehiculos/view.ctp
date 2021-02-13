@@ -23,81 +23,13 @@ $header = [
     <?php
         if ($entity) {
     ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Modelo
-                    </th>
-					<th>
-                        Combustible
-                    </th>
-					<th>
-                        Precio
-                    </th>
-					<th>
-                        Año
-                    </th>
-					<th>
-                        Kilómetros
-                    </th>
-                <?php
-                    if (!empty($table_buttons)) {
-                ?>
-                    <th class="actions short">
-                        Operaciones
-                    </th>
-                <?php
-                    }
-                ?>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="element">
-                        <p><?= $entity->modelo_id; ?></p>
-                    </td>
-					<td class="element">
-                        <p><?= $entity->combustible_id; ?></p>
-                    </td>
-					<td class="element">
-                        <p><?= $entity->precio; ?> €</p>
-                    </td>
-					<td class="element">
-                        <p><?= $entity->anno; ?></p>
-                    </td>
-					<td class="element">
-                        <p><?= $entity->kms; ?></p>
-                    </td>
-                    <?php
-                        if (!empty($table_buttons)) {
-                    ?>
-                        <td class="actions">
-                        <?php
-                            foreach ($table_buttons as $key => $value) {
-                                array_push($value['url'], $entity->id);
-                                if ($value['url']['action'] != 'delete') {
-                                    echo $this->Html->link(
-                                        $key,
-                                        $value['url'],
-                                        $value['options']
-                                    );
-                                } else {
-                                    echo $this->Form->postLink(
-                                        $key,
-                                        $value['url'],
-                                        $value['options']
-                                    );
-                                }
-                            }
-                        ?>
-                        </td>
-                    <?php
-                        }
-                    ?>
-                </tr>
-            </tbody>
-        </table>
+		<h1><?= $marca->nombre; ?> <?= $modelo->nombre ?></h1>
+		<h2><?= $entity->precio; ?> €</h2>
+		<section id="detalles">
+			<p><strong>Combustible:</strong> <?= $combustible->nombre; ?></p>
+			<p><strong>Año:</strong> <?= $entity->anno; ?></p>
+			<p><strong>Kilómetros:</strong> <?= $entity->kms; ?></p>
+		</section>
     <?php
         } else {
     ?>

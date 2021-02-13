@@ -1,29 +1,62 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Contacto $contacto
- */
+$this->Breadcrumbs->add('Inicio', '/');
+$this->Breadcrumbs->add(ucfirst('contactos'), [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'index'
+]);
+$this->Breadcrumbs->add('Contacto', [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'add'
+]);
+$header = [
+    'title' => 'Contacto',
+    'breadcrumbs' => true
+];
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Contactos'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Usuarios'), ['controller' => 'Usuarios', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Usuario'), ['controller' => 'Usuarios', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Vehiculos'), ['controller' => 'Vehiculos', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Vehiculo'), ['controller' => 'Vehiculos', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="contactos form large-9 medium-8 columns content">
-    <?= $this->Form->create($contacto) ?>
-    <fieldset>
-        <legend><?= __('Add Contacto') ?></legend>
-        <?php
-            echo $this->Form->control('usuario_id', ['options' => $usuarios]);
-            echo $this->Form->control('vehiculo_id', ['options' => $vehiculos]);
-            echo $this->Form->control('mensaje');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+
+<?= $this->element("header", $header); ?>
+
+<div class="content">
+<?= $this->Form->create(
+    $entity,
+    [
+        'class' => 'admin-form',
+        'type' => 'file'
+    ]
+); ?>
+    <div class="primary">
+            <div class="form-block">
+                <h3>Contactar sobre <?= $marca->nombre; ?> <?= $modelo->nombre; ?></h3>
+                <?= $this->Form->control(
+                    'nombre',
+                    [
+                        'label' => 'Nombre',
+                        'type' => 'text'
+                    ]
+                ); ?>
+				<?= $this->Form->control(
+                    'apellidos',
+                    [
+                        'label' => 'Apellidos',
+                        'type' => 'text'
+                    ]
+                ); ?>
+                <?= $this->Form->control(
+                    'email',
+                    [
+                        'label' => 'Email',
+                        'type' => 'email'
+                    ]
+                ); ?>
+                <?= $this->Form->control(
+                    'mensaje',
+                    [
+                        'label' => 'Mensaje',
+                        'type' => 'textarea'
+                    ]
+                ); ?>
+            </div>     
+    </div><!-- .primary -->
+    <?= $this->element("form/save-block"); ?>
+<?= $this->Form->end(); ?>
+</div><!-- .content -->

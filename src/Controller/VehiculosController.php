@@ -149,7 +149,7 @@ class VehiculosController extends AppController
     public function view($id = null)
     {
 		$view_actions = [
-			'Contactar para este vehículo' => [
+			'Contactar sobre este vehículo' => [
 				'url' => [
 					'controller' => 'Contactos',
 					'plugin' => false,
@@ -157,11 +157,17 @@ class VehiculosController extends AppController
 				]
 			]
 		];
+		array_push($view_actions['Contactar sobre este vehículo']['url'], $id);
+									
 		$this->set('header_actions', $view_actions);
         $entity = $this->{$this->getName()}->get($id);
-		$modelos = $this->Vehiculos->Modelos->find('list', ['limit' => 200]);
-        $combustibles = $this->Vehiculos->Combustibles->find('list', ['limit' => 200]);
-        $this->set(compact('entity', 'modelos', 'combustibles'));
+		
+		$vehiculo = $this->{$this->getName()}->find()->where(['id' => $id])->first();
+		$modelo = $this->{$this->getName()}->Modelos->find()->where(['id' => $vehiculo->modelo_id])->first();
+		$marca = $this->{$this->getName()}->Modelos->Marcas->find()->where(['id' => $modelo->marca_id])->first();
+		$combustible = $this->{$this->getName()}->Combustibles->find()->where(['id' => $vehiculo->combustible_id])->first();
+		
+        $this->set(compact('entity', 'modelo', 'combustible', 'marca'));
     }
 
     /**
