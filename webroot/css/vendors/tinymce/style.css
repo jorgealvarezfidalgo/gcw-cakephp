@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,600,600i,700,700i');
+/* ------------------------------ */
+/* STANDARD */
+/* ------------------------------ */
+* {
+    font-size: 16px;
+    font-family: Raleway, sans-serif;
+    font-weight: 300;
+    line-height: 1.45em;
+}
+
+/* ------------------------------ */
+/* TYPOGRAPHY */
+/* ------------------------------ */
+
+:root {
+    /* DISPLAY 5 FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --display-5-ff: Raleway;
+    --display-5-fs: 60px;
+    --display-5-fw: 700;
+    --display-5-fst: normal;
+    --display-5-lh: 67px;
+
+    /* DISPLAY 4 FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --display-4-ff: Raleway;
+    --display-4-fs: 56px;
+    --display-4-fw: 700;
+    --display-4-fst: normal;
+    --display-4-lh: 1.14;
+
+    /* DISPLAY 3 FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --display-3-ff: Raleway;
+    --display-3-fs: 48px;
+    --display-3-fw: 700;
+    --display-3-fst: normal;
+    --display-3-lh: 1.17;
+
+    /* DISPLAY 2 FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --display-2-ff: Raleway;
+    --display-2-fs: 40px;
+    --display-2-fw: 700;
+    --display-2-fst: normal;
+    --display-2-lh: 1.2;
+
+    /* DISPLAY 1 FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --display-1-ff: Raleway;
+    --display-1-fs: 32px;
+    --display-1-fw: 700;
+    --display-1-fst: oblique;
+    --display-1-lh: 1.25;
+
+    /* HEADLINE FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --headline-ff: Raleway;
+    --headline-fs: 24px;
+    --headline-fw: 700;
+    --headline-fst: normal;
+    --headline-lh: 1.33;
+
+    /* LEAD FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --lead-ff: Raleway;
+    --lead-fs: 24px;
+    --lead-fw: 300;
+    --lead-fst: normal;
+    --lead-lh: 1.33;
+
+    /* BUTTON FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --button-ff: Raleway;
+    --button-fs: 13px;
+    --button-fw: 700;
+    --button-fst: normal;
+    --button-lh: 2.46;
+
+    /* BODY FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --body-ff: Raleway;
+    --body-fs: 16px;
+    --body-fw: 300;
+    --body-fst: normal;
+    --body-lh: 1.5;
+
+    /* CAPTION FONT FAMILY, FONT SIZE, FONT WEIGHT AND LINE HEIGHT*/
+    --caption-ff: Raleway;
+    --caption-fs: 12px;
+    --caption-fw: 300;
+    --caption-fst: normal;
+    --caption-lh: 1.33;
+}
+
+.display-5 {
+    font-family: var(--display-5-ff);
+    font-size: var(--display-5-fs);
+    font-weight: var(--display-5-fw);
+    line-height: var(--display-5-lh);
+}
+
+.display-4 {
+    font-family: var(--display-4-ff);
+    font-size: var(--display-4-fs);
+    font-weight: var(--display-4-fw);
+    line-height: var(--display-4-lh);
+}
+
+.display-3 {
+    font-family: var(--display-3-ff);
+    font-size: var(--display-3-fs);
+    font-weight: var(--display-3-fw);
+    line-height: var(--display-3-lh);
+}
+
+.display-2 {
+    font-family: var(--display-2-ff);
+    font-size: var(--display-2-fs);
+    font-weight: var(--display-2-fw);
+    line-height: var(--display-2-lh);
+}
+
+.display-1 {
+    font-family: var(--display-1-ff);
+    font-size: var(--display-1-fs);
+    font-weight: var(--display-1-fw);
+    line-height: var(--display-1-lh);
+}
+
+.headline-font {
+    font-family: var(--headline-ff);
+    font-size: var(--headline-fs);
+    font-weight: var(--headline-fw);
+    line-height: var(--headline-lh);
+}
+
+.lead-font {
+    font-family: var(--lead-ff);
+    font-size: var(--lead-fs);
+    font-weight: var(--lead-fw);
+    line-height: var(--lead-lh);
+}
+
+.button-font {
+    font-family: var(--button-ff);
+    font-size: var(--button-fs);
+    font-weight: var(--button-fw);
+    line-height: var(--button-lh);
+}
+
+.body-font {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: var(--button-fst);
+    font-weight: var(--body-fw);
+    line-height: var(--body-lh);
+}
+
+.body-font--bold, .body-font strong {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: normal;
+    font-weight: 700;
+    line-height: var(--body-lh);
+}
+
+.body-font--italic, .body-font i {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: italic;
+    font-weight: normal;
+    line-height: var(--body-lh);
+}
+
+.body-font--bold-italic {
+    font-family: var(--body-ff);
+    font-size: var(--body-fs);
+    font-style: italic;
+    font-weight: 700;
+    line-height: var(--body-lh);
+}
+
+.caption-font {
+    font-family: var(--caption-ff);
+    font-size: var(--caption-fs);
+    font-weight: var(--caption-fw);
+    line-height: var(--caption-lh);
+}
+
+.caption-font--bold, .caption-font strong {
+    font-family: var(--caption-ff);
+    font-size: var(--caption-fs);
+    font-weight: 700;
+    line-height: var(--caption-lh);
+}
+
+.caption-font--italic, .caption-font i {
+    font-family: var(--caption-ff);
+    font-size: var(--caption-fs);
+    font-style: italic;
+    font-weight: normal;
+    line-height: var(--caption-lh);
+}
+
+
+/* ------------------------------ */
+/* TEMPLATES */
+/* ------------------------------ */
+
+.mceTmpl {
+    padding: 10px;
+    border: 1px dashed #DDD;
+}
+/* COLUMNS */
+.columns {
+    column-gap: 20px;
+}
+.columns h3,
+.columns h4,
+.columns p{
+    margin: 0 0 20px;
+}
+    /* CONTINUOUS COLUMNS */
+.columns.two-columns {
+    column-count: 2;
+}
+.columns.three-columns {
+    column-count: 3;
+}
+.columns.four-columns {
+    column-count: 4;
+}
+    /* FLEX COLUMNS */
+.columns.flex-columns {
+    column-count: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.columns.flex-columns .column {
+    margin: 0 10px;
+}
+.columns.flex-columns .column:first-child {
+    margin-left: 0;
+}
+.columns.flex-columns .column:last-child {
+    margin-right: 0;
+}
+.columns.flex-columns.two-columns .column{
+    width: 50%;
+}
+.columns.flex-columns.three-columns .column{
+    width: 33.33%;
+}
+.columns.flex-columns.four-columns .column{
+    width: 25%;
+}
+    /* INLINE BUTTON */
+.mceTmpl.button-template {
+    display: inline-block;
+    padding: 0;
+    border: none;
+}
+.inline-button {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background-color: #232B2D;
+    color: white;
+    text-decoration: none;
+}
+
+.inline-button[data-mce-selected="inline-boundary"] {
+    background-color: #FFCC66;
+    color: #232B2D;
+}
