@@ -119,6 +119,8 @@ table {
 img {
   max-width: 100%;
   vertical-align: middle;
+  margin-left: 1em;
+  max-height: 500px;
 }
 
 * {
@@ -2293,6 +2295,7 @@ nav {
   position: fixed;
   z-index: 10;
   background-color: #232B2D;
+  color: white;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
@@ -3714,5 +3717,16 @@ h2 {
 
 footer {
 	color: white;
-	background-color: dark-grey;
+	background-color: darkslategray;
+	text-align: center;
+}
+
+footer ul {
+	color: white;
+	margin: 0;
+	padding: 1em;
+}
+
+.header-image {
+	background-color: #D33C44;
 }

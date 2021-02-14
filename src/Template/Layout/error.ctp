@@ -31,6 +31,12 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
+<?php
+$header = [
+    'title' => ''
+];
+?>
+<?= $this->element("header", $header); ?>
     <div id="container">
         <div id="header">
             <h1><?= __('Error') ?></h1>

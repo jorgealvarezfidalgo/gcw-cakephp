@@ -22,6 +22,8 @@ if (Configure::read('debug')) :
         <strong>SQL Query Params: </strong>
         <?php Debugger::dump($error->params) ?>
 <?php endif; ?>
+
+
 <?= $this->element('auto_table_warning') ?>
 <?php
 if (extension_loaded('xdebug')) :
@@ -34,5 +36,5 @@ endif;
 <h2><?= h($message) ?></h2>
 <p class="error">
     <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
+    <?= __d('cake', 'Se ha producido un error al intentar acceder a la dirección {0}.', "<strong>'{$url}'</strong>") ?>
 </p>

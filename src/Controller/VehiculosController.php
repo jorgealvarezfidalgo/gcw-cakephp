@@ -17,6 +17,16 @@ class VehiculosController extends AppController
     public $entity_name_plural = 'vehiculos';
 
     public $table_buttons_admin = [
+		'Ver cts.' => [
+            'url' => [
+                'controller' => 'Contactos',
+                'action' => 'index_vehiculo',
+                'plugin' => false
+            ],
+            'options' => [
+                'class' => 'button'
+            ]
+        ],
         'Editar' => [
             'url' => [
                 'controller' => 'Vehiculos',
@@ -185,8 +195,12 @@ class VehiculosController extends AppController
                 return $this->redirect(['action' => 'admin']);
             }
         }
-        $modelos = $this->{$this->getName()}->Modelos->find('list');
-        $combustibles = $this->{$this->getName()}->Combustibles->find('list');
+		$modelos = $this->{$this->getName()}->Modelos->find()
+			->combine('id', 'nombre')
+			->toArray();
+		$combustibles = $this->{$this->getName()}->Combustibles->find()
+			->combine('id', 'nombre')
+			->toArray();
         $this->set(compact('entity', 'modelos', 'combustibles'));
     }
 
@@ -213,8 +227,13 @@ class VehiculosController extends AppController
                 );
             }
         }
-        $modelos = $this->Vehiculos->Modelos->find('list', ['limit' => 200]);
-        $combustibles = $this->Vehiculos->Combustibles->find('list', ['limit' => 200]);
+        $modelos = $this->{$this->getName()}->Modelos->find()
+			->combine('id', 'nombre')
+			->toArray();
+		
+		$combustibles = $this->{$this->getName()}->Combustibles->find()
+			->combine('id', 'nombre')
+			->toArray();
         $this->set(compact('entity', 'modelos', 'combustibles'));
     }
 
@@ -229,6 +248,11 @@ class VehiculosController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $vehiculo = $this->Vehiculos->get($id);
+		$contacto = $this->{$this->getName()}->Contactos->find()->where(['vehiculo_id' => $id])->first();
+		if($contacto) {
+			$this->Flash->error(__('Existe al menos un contacto con este vehículo asignado, por lo que no puede ser eliminado.'));
+			return $this->redirect(['action' => 'index']);
+		}
         if ($this->Vehiculos->delete($vehiculo)) {
             $this->Flash->success(__('El vehículo ha sido eliminado'));
         } else {

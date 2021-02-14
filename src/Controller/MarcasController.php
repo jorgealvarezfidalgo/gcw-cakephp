@@ -47,7 +47,14 @@ class MarcasController extends AppController
 					'plugin' => false,
 					'action' => 'add'
 				]
-			]
+			],
+		'Administrar modelos' => [
+            'url' => [
+                'controller' => 'Modelos',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ]
     ];
 
     // Default pagination settings
@@ -135,6 +142,11 @@ class MarcasController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $marca = $this->Marcas->get($id);
+		$modelo = $this->{$this->getName()}->Modelos->find()->where(['marca_id' => $id])->first();
+		if($modelo) {
+			$this->Flash->error(__('Existe al menos un modelo con esta marca asignada, por lo que no puede ser eliminada.'));
+			return $this->redirect(['action' => 'index']);
+		}
         if ($this->Marcas->delete($marca)) {
             $this->Flash->success(__('La marca ha sido eliminada.'));
         } else {

@@ -1,6 +1,6 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('modelos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de modelos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);

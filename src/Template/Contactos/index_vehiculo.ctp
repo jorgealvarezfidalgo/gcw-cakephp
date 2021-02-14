@@ -3,12 +3,17 @@ use Cake\Utility\Inflector;
 use Cake\Core\Configure;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('Administración de combustibles'), [
-    'controller' => $this->request->getParam('controller'),
-    'action' => 'index'
+$this->Breadcrumbs->add(ucfirst('Administración de vehículos'), [
+    'controller' => 'Vehiculos',
+    'action' => 'admin'
 ]);
+$this->Breadcrumbs->add(ucfirst('Contactos del vehículo ' . $id . ' (' . $marca->nombre . ' ' . $modelo->nombre . ')'), [
+    'action' => 'index_vehiculo',
+	$id
+]);
+
 $header = [
-    'title' => ucfirst('Administración de combustibles'),
+    'title' => ucfirst('Contactos del vehículo ' . $id . ' (' . $marca->nombre . ' ' . $modelo->nombre . ')'),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions
@@ -32,8 +37,11 @@ $header = [
         <table>
             <thead>
                 <tr>
-                    <th>
-                        Nombre
+					<th>
+                        Usuario (email)
+                    </th>
+					<th>
+                        Mensaje
                     </th>
                 <?php
                     if (!empty($table_buttons)) {
@@ -51,8 +59,11 @@ $header = [
             foreach ($entities as $entity) {
         ?>
                 <tr>
-                    <td class="element">
-                        <p><?= $entity->nombre; ?></p>
+					<td class="element">
+                        <p><?= $usuarios[$entity->usuario_id]; ?></p>
+                    </td>
+					<td class="element">
+                        <p><?= $entity->mensaje; ?></p>
                     </td>
                     <?php
                         if (!empty($table_buttons)) {

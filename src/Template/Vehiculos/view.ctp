@@ -3,12 +3,16 @@ use Cake\Utility\Inflector;
 use Cake\Core\Configure;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('vehiculos'), [
+$this->Breadcrumbs->add(ucfirst('Catálogo de vehículos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
+$this->Breadcrumbs->add('Detalle de ' . ' ' . $marca->nombre . ' ' . $modelo->nombre, [
+    'controller' => $this->request->getParam('controller'),
+    'action' => 'view',
+    $entity->id
+]);
 $header = [
-    'title' => ucfirst('Detalle de vehículo'),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions
@@ -25,6 +29,7 @@ $header = [
     ?>
 		<h1><?= $marca->nombre; ?> <?= $modelo->nombre ?></h1>
 		<h2><?= $entity->precio; ?> €</h2>
+		<?= $this->Html->image('coche_estandar.jpg') ?>
 		<section id="detalles">
 			<p><strong>Combustible:</strong> <?= $combustible->nombre; ?></p>
 			<p><strong>Año:</strong> <?= $entity->anno; ?></p>

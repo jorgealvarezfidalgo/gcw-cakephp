@@ -30,23 +30,6 @@ class ContactosController extends AppController
         ]
     ];
 
-    public $header_actions = [
-        'Administrar vehículos' => [
-            'url' => [
-                'controller' => 'Vehiculos',
-                'plugin' => false,
-                'action' => 'index'
-            ]
-        ],
-        'Administrar usuarios' => [
-            'url' => [
-                'controller' => 'Usuarios',
-                'plugin' => false,
-                'action' => 'index'
-            ]
-        ]
-    ];
-
     // Default pagination settings
     public $paginate = [
         'limit' => 20,
@@ -95,7 +78,60 @@ class ContactosController extends AppController
         $this->set('marcas', $marcas);
         $this->set('marcas_modelos', $marcas_modelos);
         $this->set('vehiculos_modelos', $vehiculos_modelos);
-		$this->set('header_actions', []);
+		$header_actions = [
+        'Administrar vehículos' => [
+            'url' => [
+                'controller' => 'Vehiculos',
+                'plugin' => false,
+                'action' => 'admin'
+            ]
+        ],
+        'Administrar usuarios' => [
+            'url' => [
+                'controller' => 'Usuarios',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ]
+    ];
+		$this->set('header_actions', $header_actions);
+        $this->set('table_buttons', $this->table_buttons);
+        $this->set('_serialize', 'entities');
+    }
+	
+	public function indexVehiculo($id = null)
+    {
+		$settings = $this->paginate;
+
+        //prepare the pagination
+        $this->paginate = $settings;
+		
+		$query = $this->{$this->getName()}->find()->where(['vehiculo_id' => $id]);
+        $entities = $this->paginate($query);
+		
+		$vehiculo = $this->{$this->getName()}->Vehiculos->find()->where(['id' => $id])->first();
+		$modelo = $this->{$this->getName()}->Vehiculos->Modelos->find()->where(['id' => $vehiculo->modelo_id])->first();
+		$marca = $this->{$this->getName()}->Vehiculos->Modelos->Marcas->find()->where(['id' => $modelo->marca_id])->first();
+		
+		$usuarios = $this->{$this->getName()}->Usuarios->find()
+			->combine('id', 'email')
+			->toArray();
+
+        $this->set('entities', $entities);
+        $this->set('modelo', $modelo);
+        $this->set('usuarios', $usuarios);
+        $this->set('marca', $marca);
+        $this->set('id', $id);
+		$header_actions = [
+        'Administrar contactos' => [
+            'url' => [
+                'controller' => 'Contactos',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ]
+    ];
+		$this->set('header_actions', $header_actions);
         $this->set('table_buttons', $this->table_buttons);
         $this->set('_serialize', 'entities');
     }
@@ -146,7 +182,7 @@ class ContactosController extends AppController
 			}
 			return $this->redirect(['controller' => 'Vehiculos', 'action' => 'index']);
         }
-        $this->set(compact('entity', 'modelo', 'marca'));
+        $this->set(compact('entity', 'modelo', 'marca', 'vehiculo'));
     }
 
     /**

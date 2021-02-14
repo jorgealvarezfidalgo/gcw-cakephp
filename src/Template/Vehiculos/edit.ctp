@@ -1,16 +1,16 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('vehiculos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de vehículos'), [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'index'
+    'action' => 'admin'
 ]);
-$this->Breadcrumbs->add('Editar vehículo' . ' ' . $entity->title, [
+$this->Breadcrumbs->add('Editar vehículo' . ' ' . $entity->id, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'edit',
     $entity->id
 ]);
 $header = [
-    'title' => 'Editar vehículo',
+    'title' => 'Editar vehículo'. ' ' . $entity->id,
     'breadcrumbs' => true
 ];
 ?>

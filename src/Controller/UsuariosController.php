@@ -30,6 +30,13 @@ class UsuariosController extends AppController
     ];
 
     public $header_actions = [
+		'Administrar contactos' => [
+            'url' => [
+                'controller' => 'Contactos',
+                'plugin' => false,
+                'action' => 'index'
+            ]
+        ]
     ];
 
     // Default pagination settings
@@ -118,6 +125,11 @@ class UsuariosController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $usuario = $this->Usuarios->get($id);
+		$contacto = $this->{$this->getName()}->Contactos->find()->where(['usuario_id' => $id])->first();
+		if($contacto) {
+			$this->Flash->error(__('Existe al menos un contacto con este usuario asignado, por lo que no puede ser eliminado.'));
+			return $this->redirect(['action' => 'index']);
+		}
         if ($this->Usuarios->delete($usuario)) {
             $this->Flash->success(__('El usuario ha sido eliminado.'));
         } else {

@@ -1,16 +1,16 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('modelos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de modelos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Editar modelo' . ' ' . $entity->nombre, [
+$this->Breadcrumbs->add('Editar modelo' . ' ' . $entity->id, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'edit',
     $entity->id
 ]);
 $header = [
-    'title' => 'Editar modelo',
+    'title' => 'Editar modelo'  . ' ' . $entity->id,
     'breadcrumbs' => true
 ];
 ?>

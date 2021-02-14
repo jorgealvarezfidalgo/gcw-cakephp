@@ -3,12 +3,12 @@ use Cake\Utility\Inflector;
 use Cake\Core\Configure;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('vehiculos'), [
+$this->Breadcrumbs->add(ucfirst('Catálogo de vehículos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst('vehiculos'),
+    'title' => ucfirst('Catálogo de vehículos'),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions
@@ -17,7 +17,6 @@ $header = [
 ?>
 
 <?= $this->element("header", $header); ?>
-
 <div class="content">
     <div class="results">
     <?php

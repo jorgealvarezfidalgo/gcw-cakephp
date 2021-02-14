@@ -90,13 +90,5 @@ use Cake\Http\Exception\NotFoundException;
     </div>
 </div>
 
-<footer>
-<ul>
-<li>Jorge Álvarez Fidalgo - 2021</li>
-<li>Máster Universitario en Ingeniería Web</li>
-<li>Universidad de Oviedo</li>
-</ul>
-</footer>
-
 </body>
 </html>

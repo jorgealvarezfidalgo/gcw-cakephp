@@ -3,12 +3,12 @@ use Cake\Utility\Inflector;
 use Cake\Core\Configure;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('modelos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de modelos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
 $header = [
-    'title' => ucfirst('modelos'),
+    'title' => ucfirst('Administración de modelos'),
     'breadcrumbs' => true,
     'header' => [
         'actions' => $header_actions

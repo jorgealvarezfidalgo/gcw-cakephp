@@ -1,16 +1,16 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('marcas'), [
+$this->Breadcrumbs->add(ucfirst('Administración de marcas'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Editar marca' . ' ' . $entity->nombre, [
+$this->Breadcrumbs->add('Editar marca' . ' ' . $entity->id, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'edit',
     $entity->id
 ]);
 $header = [
-    'title' => 'Editar marca',
+    'title' => 'Editar marca'. ' ' . $entity->id,
     'breadcrumbs' => true
 ];
 ?>

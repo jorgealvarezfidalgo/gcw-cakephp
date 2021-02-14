@@ -1,16 +1,16 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('combustibles'), [
+$this->Breadcrumbs->add(ucfirst('Administración de combustibles'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);
-$this->Breadcrumbs->add('Editar combustible' . ' ' . $entity->nombre, [
+$this->Breadcrumbs->add('Editar combustible' . ' ' . $entity->id, [
     'controller' => $this->request->getParam('controller'),
     'action' => 'edit',
     $entity->id
 ]);
 $header = [
-    'title' => 'Editar combustible',
+    'title' => 'Editar combustible ' . $entity->id,
     'breadcrumbs' => true
 ];
 ?>

@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'TRUBIAUTOS';
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,24 +53,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     ?>
 </head>
 <body>
-    <!--<nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav>-->
+
     <?= $this->Flash->render() ?>
     <div class="container clearfix full" id="main-content">
         <?= $this->fetch('content') ?>
     </div>
     <footer>
-    </footer>
+	<ul>
+	<li>Jorge Álvarez Fidalgo - 2021</li>
+	<li>Máster Universitario en Ingeniería Web</li>
+	<li>Universidad de Oviedo</li>
+	</ul>
+	</footer>
 </body>
 </html>

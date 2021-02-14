@@ -53,8 +53,15 @@ class ModelosController extends AppController
                 'controller' => 'Marcas',
                 'plugin' => false,
                 'action' => 'index'
+				]		
+			],
+			'Administrar vehículos' => [
+            'url' => [
+                'controller' => 'Vehiculos',
+                'plugin' => false,
+                'action' => 'admin'
             ]
-        ]
+			]
     ];
 
     // Default pagination settings
@@ -153,7 +160,12 @@ class ModelosController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $modelos = $this->Modelos->get($id);
-        if ($this->Modelos->delete($modelos)) {
+		$vehiculo = $this->{$this->getName()}->Vehiculos->find()->where(['modelo_id' => $id])->first();
+		if($vehiculo) {
+			$this->Flash->error(__('Existe al menos un vehículo con este modelo asignado, por lo que no puede ser eliminado.'));
+			return $this->redirect(['action' => 'index']);
+		}
+        if ($this->Modelos->delete($modelos)) {		
             $this->Flash->success(__('El modelo ha sido eliminado.'));
         } else {
             $this->Flash->error(__('El modelo no pudo ser eliminado. Inténtelo de nuevo.'));

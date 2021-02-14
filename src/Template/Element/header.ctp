@@ -2,14 +2,17 @@
 <?php
 use Cake\Core\Configure;
 use Cake\I18n\I18n;
+?>
 
+<div class="header-image"><a href="/"><?= $this->Html->image('cake-logo.png') ?></a></div>
+<?php
 if ((isset($breadcrumbs) && $breadcrumbs === true) || isset($languages)) {
 ?>
     <div class="top-header">
-    <!--<?= $this->Breadcrumbs->render(
+    <?= $this->Breadcrumbs->render(
         ['class' => 'breadcrumbs'],
         ['separator' => ' &raquo; ']
-    ); ?> -->
+    ); ?>
     <?php
     if(isset($languages)) {
         ?>
@@ -37,8 +40,12 @@ if ((isset($breadcrumbs) && $breadcrumbs === true) || isset($languages)) {
 ?>
 
     <div class="mid-header">
+		<?php
+    if(isset($title)) {
+        ?>
         <h2><?= $title; ?></h2>
 <?php
+}
 if (isset($header)) {
     if (isset($header['actions']) && !empty($header['actions'])) {
         ?>
@@ -58,6 +65,11 @@ if (isset($header)) {
         ?>
         </div><!-- .actions -->
         <?php
+    if(isset($title) == false) {
+        ?>
+        <h2></h2>
+<?php
+}
     }
     if (isset($header['buttons']) && !empty($header['buttons'])) {
         ?>

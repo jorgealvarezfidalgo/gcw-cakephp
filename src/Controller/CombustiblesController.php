@@ -47,6 +47,13 @@ class CombustiblesController extends AppController
 					'plugin' => false,
 					'action' => 'add'
 				]
+			],
+			'Administrar vehículos' => [
+            'url' => [
+                'controller' => 'Vehiculos',
+                'plugin' => false,
+                'action' => 'admin'
+            ]
 			]
     ];
 
@@ -135,6 +142,11 @@ class CombustiblesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $combustible = $this->Combustibles->get($id);
+		$vehiculo = $this->{$this->getName()}->Vehiculos->find()->where(['combustible_id' => $id])->first();
+		if($vehiculo) {
+			$this->Flash->error(__('Existe al menos un vehículo con este combustible asignado, por lo que no puede ser eliminado.'));
+			return $this->redirect(['action' => 'index']);
+		}
         if ($this->Combustibles->delete($combustible)) {
             $this->Flash->success(__('El combustible ha sido eliminado.'));
         } else {

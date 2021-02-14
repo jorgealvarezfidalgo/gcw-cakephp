@@ -3,7 +3,7 @@ use Cake\Utility\Inflector;
 use Cake\Core\Configure;
 
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('vehiculos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de vehículos'), [
     'controller' => $this->request->getParam('controller'),
     'action' => 'index'
 ]);

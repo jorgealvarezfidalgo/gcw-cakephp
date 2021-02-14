@@ -1,8 +1,8 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('vehiculos'), [
+$this->Breadcrumbs->add(ucfirst('Administración de vehículos'), [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'index'
+    'action' => 'admin'
 ]);
 $this->Breadcrumbs->add('Añadir vehículo', [
     'controller' => $this->request->getParam('controller'),

@@ -1,12 +1,18 @@
 <?php
 $this->Breadcrumbs->add('Inicio', '/');
-$this->Breadcrumbs->add(ucfirst('contactos'), [
-    'controller' => $this->request->getParam('controller'),
+$this->Breadcrumbs->add(ucfirst('Catálogo de vehículos'), [
+    'controller' => 'Vehiculos',
     'action' => 'index'
+]);
+$this->Breadcrumbs->add('Detalle de ' . ' ' . $marca->nombre . ' ' . $modelo->nombre, [
+    'controller' => 'Vehiculos',
+    'action' => 'view',
+    $vehiculo->id
 ]);
 $this->Breadcrumbs->add('Contacto', [
     'controller' => $this->request->getParam('controller'),
-    'action' => 'add'
+    'action' => 'add',
+	$vehiculo->id
 ]);
 $header = [
     'title' => 'Contacto',
@@ -17,6 +23,9 @@ $header = [
 <?= $this->element("header", $header); ?>
 
 <div class="content">
+<?php
+        if ($vehiculo) {
+    ?>
 <?= $this->Form->create(
     $entity,
     [
@@ -59,4 +68,11 @@ $header = [
     </div><!-- .primary -->
     <?= $this->element("form/save-block"); ?>
 <?= $this->Form->end(); ?>
+    <?php
+        } else {
+    ?>
+        <p class="no-results">No existe tal vehículo. Por favor, revise la ruta.</p>
+    <?php
+        }
+    ?>
 </div><!-- .content -->
