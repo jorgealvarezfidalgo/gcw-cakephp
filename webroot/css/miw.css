@@ -3711,3 +3711,8 @@ h2 {
 #detalles p, h1, h2 {
 	margin: 0.5em;
 }
+
+footer {
+	color: white;
+	background-color: dark-grey;
+}

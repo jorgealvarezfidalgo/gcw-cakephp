@@ -113,8 +113,38 @@ class ContactosController extends AppController
 		
 		
         $entity = $this->{$this->getName()}->newEntity();
+        $usuario = $this->{$this->getName()}->Usuarios->newEntity();
         if ($this->request->is('post')) {
-			debug($this->request->getData());
+			$datos_usuario = array(
+				'nombre' => $this->request->getData()['nombre'],
+				'apellidos' => $this->request->getData()['apellidos'],
+				'email' => $this->request->getData()['email']
+			);
+			
+			
+			$usuario_bd = $this->{$this->getName()}->Usuarios->find()->where(['email' => $datos_usuario['email']])->first();
+			
+			if(is_null($usuario_bd)) {
+				$usuario = $this->{$this->getName()}->Usuarios->patchEntity($usuario, $datos_usuario);
+				if ($this->{$this->getName()}->Usuarios->save($usuario)) {
+					$usuario_bd = $this->{$this->getName()}->Usuarios->find()->where(['email' => $usuario->email])->first();					
+				}
+			} else {
+				$usuario = $usuario_bd;
+				$usuario = $this->{$this->getName()}->Usuarios->patchEntity($usuario, $datos_usuario);
+				$this->{$this->getName()}->Usuarios->save($usuario);
+			}
+			
+			$datos_contacto = array(
+						'usuario_id' => $usuario_bd->id,
+						'vehiculo_id' => $id,
+						'mensaje' => $this->request->getData()['mensaje']
+			);
+			$entity = $this->{$this->getName()}->patchEntity($entity, $datos_contacto);
+			if($this->{$this->getName()}->save($entity)) {
+				$this->Flash->success(__('El contacto se ha realizado exitosamente.'));
+			}
+			return $this->redirect(['controller' => 'Vehiculos', 'action' => 'index']);
         }
         $this->set(compact('entity', 'modelo', 'marca'));
     }
@@ -122,15 +152,15 @@ class ContactosController extends AppController
     /**
      * Delete method
      *
-     * @param string|null $id Vehiculo id.
+     * @param string|null $id Contacto id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $vehiculo = $this->Vehiculos->get($id);
-        if ($this->Vehiculos->delete($vehiculo)) {
+        $contacto = $this->Contactos->get($id);
+        if ($this->Contactos->delete($contacto)) {
             $this->Flash->success(__('El contacto ha sido eliminado'));
         } else {
             $this->Flash->error(__('El contacto no ha podido ser eliminado. Por favor, inténtelo de nuevo.'));
