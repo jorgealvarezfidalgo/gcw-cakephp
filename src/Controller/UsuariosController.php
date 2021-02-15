@@ -69,52 +69,6 @@ class UsuariosController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $entity = $this->Usuarios->newEntity();
-        if ($this->request->is('post')) {
-            $entity = $this->Usuarios->patchEntity($entity, $this->request->getData());
-            if ($this->Usuarios->save($entity)) {
-                $this->Flash->success(__('El usuario ha sido guardado.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('El usuario no pudo ser guardado. Inténtelo de nuevo.'));
-        }
-        $this->set(compact('entity'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Http\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null, $locale = null)
-    {
-        if ($locale != null) {
-            $this->setLocale($locale);
-        }
-        $entity = $this->{$this->getName()}->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $entity = $this->{$this->getName()}->patchEntity($entity, $this->request->getData());
-            if ($this->{$this->getName()}->save($entity)) {
-                return $this->redirect(
-                    [
-                        'action' => 'index'
-                    ]
-                );
-            }
-        }
-        $this->set(compact('entity'));
-    }
-
-    /**
      * Delete method
      *
      * @param string|null $id Post id.
