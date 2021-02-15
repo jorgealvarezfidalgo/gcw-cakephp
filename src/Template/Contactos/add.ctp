@@ -40,21 +40,24 @@ $header = [
                     'nombre',
                     [
                         'label' => 'Nombre',
-                        'type' => 'text'
+                        'type' => 'text',
+						'required' => true
                     ]
                 ); ?>
 				<?= $this->Form->control(
                     'apellidos',
                     [
                         'label' => 'Apellidos',
-                        'type' => 'text'
+                        'type' => 'text',
+						'required' => true
                     ]
                 ); ?>
                 <?= $this->Form->control(
                     'email',
                     [
                         'label' => 'Email',
-                        'type' => 'email'
+                        'type' => 'email',
+						'required' => true
                     ]
                 ); ?>
                 <?= $this->Form->control(

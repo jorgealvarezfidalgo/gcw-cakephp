@@ -251,7 +251,7 @@ class VehiculosController extends AppController
 		$contacto = $this->{$this->getName()}->Contactos->find()->where(['vehiculo_id' => $id])->first();
 		if($contacto) {
 			$this->Flash->error(__('Existe al menos un contacto con este vehículo asignado, por lo que no puede ser eliminado.'));
-			return $this->redirect(['action' => 'index']);
+			return $this->redirect(['action' => 'admin']);
 		}
         if ($this->Vehiculos->delete($vehiculo)) {
             $this->Flash->success(__('El vehículo ha sido eliminado'));
